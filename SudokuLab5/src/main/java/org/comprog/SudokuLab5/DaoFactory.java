@@ -14,12 +14,12 @@ public class DaoFactory {
    * @param fileName file name to open
    * @return reference to created object
    */
-  public static Dao<? extends Serializable> create(DaoTypes type, String fileName) {
-    Dao<?> instance = null;
+  public static <T extends Serializable> Dao<T> create(DaoTypes type, String fileName) {
+    Dao<T> instance = null;
     
     switch (type) {
     case FileSuokuBoard:
-      instance = new FileSudokuBoardDao(fileName);
+      instance = (Dao<T>) new FileSudokuBoardDao(fileName);
       break;
     }
     

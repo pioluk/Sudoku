@@ -51,22 +51,7 @@ public class SudokuBoard implements Serializable {
    * @param v value to set at position (x, y)
    */
   public void set(int x, int y, int v) {
-    board.get(x).set(y, v);
-  }
-  
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    
-    for (int i = 0; i < 9; ++i) {
-      for (int j = 0; j < 9; ++j) {
-        sb.append(get(i, j));
-        sb.append(" ");
-      }
-      sb.append("\n");
-    }
-    
-    return sb.toString();
+    board.get(x).get(y).setValue(v);
   }
 
   @Override
@@ -97,6 +82,21 @@ public class SudokuBoard implements Serializable {
       return false;
     
     return true;
-  }  
+  }
+  
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    
+    for (int i = 0; i < 9; ++i) {
+      for (int j = 0; j < 9; ++j) {
+        sb.append(get(i, j));
+        sb.append(" ");
+      }
+      sb.append("\n");
+    }
+    
+    return sb.toString();
+  }
  
 }

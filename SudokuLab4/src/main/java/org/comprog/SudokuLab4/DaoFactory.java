@@ -2,24 +2,25 @@ package org.comprog.SudokuLab4;
 
 import java.io.Serializable;
 
-enum DaoTypes {
-  FileSuokuBoard
-}
-
 public class DaoFactory {
   
+  public enum DaoTypes {
+    FileSuokuBoard
+  }
+  
   /**
-   * Method creating instance og {@link Dao}
+   * Method creating instance of {@link Dao}
    * @param type type of implementation of {@link #Dao<T>}
    * @param fileName file name to open
+   * @return 
    * @return reference to created object
    */
-  public static Dao<? extends Serializable> create(DaoTypes type, String fileName) {
-    Dao<?> instance = null;
+  public static <T extends Serializable> Dao<T> create(DaoTypes type, String fileName) {
+    Dao<T> instance = null;
     
     switch (type) {
     case FileSuokuBoard:
-      instance = new FileSudokuBoardDao(fileName);
+      instance = (Dao<T>) new FileSudokuBoardDao(fileName);
       break;
     }
     

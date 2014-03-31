@@ -1,7 +1,10 @@
 package org.comprog.SudokuLab4;
 
 import static org.junit.Assert.*;
+
 import java.io.File;
+
+import org.comprog.SudokuLab4.DaoFactory.DaoTypes;
 import org.junit.After;
 import org.junit.Test;
 
@@ -15,7 +18,7 @@ public class FileSudokuBoardDaoTest {
     SudokuSolver randomSolver = new RandomSudokuSolver();
     randomSolver.solve(board);
     
-    Dao<SudokuBoard> sudokuDao = (FileSudokuBoardDao) DaoFactory.create(DaoTypes.FileSuokuBoard, fileName);
+    Dao<SudokuBoard> sudokuDao = DaoFactory.create(DaoTypes.FileSuokuBoard, fileName);
     sudokuDao.write(board);
     SudokuBoard board2 = sudokuDao.read();
     

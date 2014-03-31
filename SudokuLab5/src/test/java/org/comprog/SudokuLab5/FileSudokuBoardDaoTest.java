@@ -24,7 +24,7 @@ public class FileSudokuBoardDaoTest {
     SudokuSolver randomSolver = new RandomSudokuSolver();
     randomSolver.solve(board);
     
-    Dao<SudokuBoard> sudokuDao = (FileSudokuBoardDao) DaoFactory.create(DaoTypes.FileSuokuBoard, fileName);
+    Dao<SudokuBoard> sudokuDao = DaoFactory.create(DaoTypes.FileSuokuBoard, fileName);
     sudokuDao.write(board);
     SudokuBoard board2 = sudokuDao.read();
     
