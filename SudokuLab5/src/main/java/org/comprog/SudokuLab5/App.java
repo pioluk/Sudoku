@@ -17,6 +17,7 @@ public class App extends Application {
   private static int WIDTH = 400;
   private static int HEIGHT = 400;
   private static final double GAP = 6.0;
+  private String CSS_PATH;
   
   private Scene scene;
   private VBox vbox;
@@ -26,6 +27,10 @@ public class App extends Application {
   
   private static SudokuBoard board = new SudokuBoard();
   private static final SudokuSolver randomSolver = new RandomSudokuSolver();
+  
+  App() {
+    
+  }
   
   @Override
   public void start(Stage primaryStage) throws Exception {
@@ -39,7 +44,8 @@ public class App extends Application {
   }
 
   private void initComponents() {   
-    vbox = new VBox();
+    vbox = new VBox(6.0);
+    vbox.setAlignment(Pos.CENTER);
     vbox.setPadding(new Insets(12.0));
     
     grid = new GridPane();
@@ -50,7 +56,9 @@ public class App extends Application {
     initSudoku();
     
     button = new Button("Reload");
+    button.resize(380.0, 25.0);
     button.setOnAction((event) -> initSudoku());
+    button.setMaxWidth(WIDTH);
     
     grid.add(button, 0, 9);
     
@@ -85,6 +93,7 @@ public class App extends Application {
   }
   
   public static void main( String[] args ) {
+    
     launch(args);
   }
   
