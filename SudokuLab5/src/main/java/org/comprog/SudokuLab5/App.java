@@ -1,14 +1,13 @@
 package org.comprog.SudokuLab5;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -20,6 +19,7 @@ public class App extends Application {
   private static final double GAP = 6.0;
   
   private Scene scene;
+  private VBox vbox;
   private GridPane grid;
   private Label[][] numbers;
   private Button button;
@@ -34,15 +34,18 @@ public class App extends Application {
     initComponents();
     
     primaryStage.setScene(scene);
+    primaryStage.setResizable(false);
     primaryStage.show();
   }
 
   private void initComponents() {   
+    vbox = new VBox();
+    vbox.setPadding(new Insets(12.0));
+    
     grid = new GridPane();
     grid.setAlignment(Pos.CENTER);
-    grid.setHgap(4 * GAP);
+    grid.setHgap(6 * GAP);
     grid.setVgap(GAP);
-    grid.setPadding(new Insets(12.0));
     
     initSudoku();
     
@@ -51,7 +54,10 @@ public class App extends Application {
     
     grid.add(button, 0, 9);
     
-    scene = new Scene(grid);
+    vbox.getChildren().add(grid);
+    vbox.getChildren().add(button);
+    
+    scene = new Scene(vbox);
   }
 
   private void initSudoku() {
@@ -64,7 +70,7 @@ public class App extends Application {
         numbers[i] = new Label[9];
         for (int j = 0; j < 9; ++j) {
           numbers[i][j] = new Label(String.valueOf(board.get(i, j)));
-          numbers[i][j].setFont(new Font("Comic Sans Ms", 36.0));
+          numbers[i][j].setFont(new Font("Droid Sans", 36.0));
           grid.add(numbers[i][j], i, j);
         }
       }
