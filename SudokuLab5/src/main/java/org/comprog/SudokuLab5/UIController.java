@@ -7,7 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -25,20 +26,71 @@ public class UIController implements Initializable {
   private static final int FIELD_NUMBER = 9;
   
   @FXML private GridPane grid;
-  @FXML private Button reloadButton;
+  @FXML private Button generateBoardButton;
+  @FXML private RadioButton easyModeButton;
+  @FXML private RadioButton mediumModeButton;
+  @FXML private RadioButton hardModeButton;
   
-  private IndexedTextField[][] numbers;
+  private ToggleGroup toggleGroup;
   
-  private static SudokuBoard board = new SudokuBoard();
-  private static SudokuSolver randomSolver = new RandomSudokuSolver();
+  private IndexedTextField[][] numberFields;
+  
+  private SudokuBoard board = new SudokuBoard(Difficulty.EASY);
+  private SudokuSolver randomSolver = new RandomSudokuSolver();
   
   /**
    * Method filling the gird on first run
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    // set up UI
+    setUpRadioButtons();
+    setUpGrid();
     fillGrid();
+    
+    // higlight missing fields
+    for (int i = 0; i < numberFields.length; ++i) {
+      for (int j = 0; j < numberFields[i].length; ++j) {
+        invalidateField(numberFields[i][j]);
+      }
+    }
   }
+
+  private void setUpGrid() {
+    numberFields = new IndexedTextField[FIELD_NUMBER][FIELD_NUMBER];
+    
+    for (int i = 0; i < FIELD_NUMBER; ++i) {
+      numberFields[i] = new IndexedTextField[FIELD_NUMBER];
+      for (int j = 0; j < FIELD_NUMBER; ++j) {
+        String number = String.valueOf(board.get(i, j));
+        numberFields[i][j] = new IndexedTextField(number, i, j);
+        addTextFieldValidation(numberFields[i][j]);
+        grid.add(numberFields[i][j], i, j);
+      }
+    }
+  }
+
+  private void setUpRadioButtons() {
+    toggleGroup = new ToggleGroup();
+    easyModeButton.setToggleGroup(toggleGroup);
+    mediumModeButton.setToggleGroup(toggleGroup);
+    hardModeButton.setToggleGroup(toggleGroup);
+    toggleGroup.selectedToggleProperty().addListener((ov, old, currentButton) -> {
+      RadioButton radioButton = (RadioButton) currentButton;
+      
+      if (radioButton.getText().equals("EASY")) {
+        board.setDifficulty(Difficulty.EASY);
+      }
+      else if (radioButton.getText().equals("MEDIUM")) {
+        board.setDifficulty(Difficulty.MEDIUM);
+      }
+      else if (radioButton.getText().equals("HARD")) {
+        board.setDifficulty(Difficulty.HARD);
+      }
+      
+      fillGrid();
+    });
+  } 
   
   /**
    * Method invoked on reload button click
@@ -54,29 +106,11 @@ public class UIController implements Initializable {
    */
   private void fillGrid() {
     randomSolver.solve(board);
-    board.clearFields(Difficulty.EASY);
+    board.clearFields();
   
-    if (numbers == null) {
-      numbers = new IndexedTextField[FIELD_NUMBER][FIELD_NUMBER];
-    
-      for (int i = 0; i < FIELD_NUMBER; ++i) {
-        numbers[i] = new IndexedTextField[FIELD_NUMBER];
-        for (int j = 0; j < FIELD_NUMBER; ++j) {
-          String number = String.valueOf(board.get(i, j));
-          if (number.equals("-1"))
-            number = " ";
-            
-          numbers[i][j] = new IndexedTextField(number, i, j);
-          addTextFieldValidation(numbers[i][j]);
-          grid.add(numbers[i][j], i, j);
-        }
-      }
-    }
-    else {
-      for (int i = 0; i < FIELD_NUMBER; ++i) {
-        for (int j = 0; j < FIELD_NUMBER; ++j) {
-          numbers[i][j].setText(String.valueOf(board.get(i, j)));
-        }
+    for (int i = 0; i < FIELD_NUMBER; ++i) {
+      for (int j = 0; j < FIELD_NUMBER; ++j) {
+        numberFields[i][j].setText(String.valueOf(board.get(i, j)));
       }
     }
   }
@@ -85,38 +119,55 @@ public class UIController implements Initializable {
    * Mathod that ensures that single text field contains only one character.
    * If the field is empty or the character is not a number, the proper style
    * is applied to inform user of the invalid value;
-   * @param text field to affect
+   * @param field text field to affect
    */
   private void addTextFieldValidation(IndexedTextField field) {
     field.setPrefColumnCount(1);
     
     field.textProperty().addListener((observableValue, oldValue, newValue) -> {
       if (newValue.length() > 1) {
-        field.setText(newValue.substring(0, 1));
+        field.setText(newValue.substring(1, 2));
       }
       
-      if (!newValue.matches("^\\d$") || newValue.matches("^0$")) {
-        field.getStyleClass().add(INVALID_STYLE_CLASS_NAME);
-      }
-      else {
-        field.getStyleClass().remove(INVALID_STYLE_CLASS_NAME);
-        board.set(field.getX(), field.getY(), new Integer(newValue));
-        System.out.println("field set");
-        System.out.println(board.isCorrect());
-      }
-      
-      boolean isBoardCorrect = board.isCorrect();
-      
-      for (int i = 0; i < numbers.length; ++i) {
-        for (int j = 0; j < numbers[i].length; ++j) {
-          if (isBoardCorrect)
-            numbers[i][j].setStyle(CORRECT_STYLE);
-          else
-            numbers[i][j].setStyle(null);
-        }
-      }
+      invalidateField(field);
+      invalidateBoard();
       
     });
+  }
+
+  /**
+   * Checks if the board is correct and if so
+   * highlights it
+   */
+  private void invalidateBoard() {
+    boolean isBoardCorrect = board.isCorrect();
+    
+    for (int i = 0; i < numberFields.length; ++i) {
+      for (int j = 0; j < numberFields[i].length; ++j) {
+        if (isBoardCorrect)
+          numberFields[i][j].setStyle(CORRECT_STYLE);
+        else
+          numberFields[i][j].setStyle(null);
+      }
+    }
+  }
+
+  /**
+   * Chcecks wheter the fields is valid ( contains only numbers
+   * 1 - 9) and highlights that field if it is not correct
+   */
+  private void invalidateField(IndexedTextField field) {
+    String value = field.getText();
+    
+    if (!value.matches("^\\d$") || value.matches("^0$")) {
+      field.getStyleClass().add(INVALID_STYLE_CLASS_NAME);
+    }
+    else {
+      field.getStyleClass().removeAll(INVALID_STYLE_CLASS_NAME);
+      board.set(field.getX(), field.getY(), new Integer(value));
+      System.out.println("field set");
+      System.out.println(board.isCorrect());
+    }
   }
   
 }

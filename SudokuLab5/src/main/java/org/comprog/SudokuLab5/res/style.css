@@ -15,6 +15,14 @@
 	-fx-background-color: linear-gradient(#3d3c38, #525049);
 }
 
+#flowPane {
+	-fx-alignment: center;
+}
+
+.radio-button {
+	-fx-padding: 12px;
+}
+
 .text-field {
 	-fx-font-size: 14pt;
 	-fx-highlight-fill: #ee7443;

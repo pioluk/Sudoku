@@ -20,7 +20,7 @@ public class FileSudokuBoardDaoTest {
 
   @Test
   public void testSerializationCorrectness() {
-    SudokuBoard board = new SudokuBoard();
+    SudokuBoard board = new SudokuBoard(Difficulty.NONE);
     SudokuSolver randomSolver = new RandomSudokuSolver();
     randomSolver.solve(board);
     

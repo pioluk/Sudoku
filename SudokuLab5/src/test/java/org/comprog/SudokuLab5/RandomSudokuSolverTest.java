@@ -19,7 +19,7 @@ public class RandomSudokuSolverTest {
   @BeforeClass
   public static void init() {
     solver = new RandomSudokuSolver();
-    board = new SudokuBoard();
+    board = new SudokuBoard(Difficulty.NONE);
     solver.solve(board);
   }
   
