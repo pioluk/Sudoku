@@ -1,0 +1,33 @@
+@CHARSET "ISO-8859-1";
+
+.root {
+	-fx-alignment: CENTER;
+	-fx-padding: 12px;
+	-fx-font-family: Ubuntu;
+	-fx-background-color: #e7e5e4;
+	-fx-hgap: 36px;
+	-fx-vgap: 12px;
+	-fx-max-width: 800px;
+	-fx-max-height: 600px;
+	
+}
+
+#grid {
+	-fx-alignment: CENTER;
+	-fx-hgap: 36px;
+	-fx-vgap: 6px;
+}
+
+.label {
+	-fx-font-size: 32pt;
+}
+
+.button {
+	-fx-text-fill: white;
+	-fx-font-size: 18pt;
+	-fx-background-color: linear-gradient(#525049, #3d3c38);
+}
+
+.button:hover {
+	-fx-background-color: linear-gradient(#3d3c38, #525049);
+}

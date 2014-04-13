@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<VBox fx:controller="org.comprog.SudokuLab5.UIController" xmlns:fx="http://javafx.com/fxml">
+	<children>
+	
+		<Label text="Sudoku" />
+	
+		<GridPane fx:id="grid">
+			<children>
+			</children>
+		</GridPane>
+	
+		<Button onAction="#reloadButtonClicked" fx:id="reloadButton" maxWidth="360" text="Reload" />
+		
+	</children>
+</VBox>
+
