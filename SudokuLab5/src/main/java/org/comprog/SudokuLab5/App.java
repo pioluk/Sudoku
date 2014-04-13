@@ -6,6 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Class representing JavaFX Application
+ */
 public class App extends Application {
   
   private static final String TITLE = "Sudoku";

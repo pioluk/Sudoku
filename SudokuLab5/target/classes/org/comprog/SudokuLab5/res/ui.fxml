@@ -18,7 +18,7 @@
 			</children>
 		</GridPane>
 	
-		<Button onAction="#reloadButtonClicked" fx:id="reloadButton" maxWidth="360" text="Reload" />
+		<Button onAction="#onReloadButtonAction" fx:id="reloadButton" maxWidth="360" text="Reload" />
 		
 	</children>
 </VBox>

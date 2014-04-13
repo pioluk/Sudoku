@@ -2,6 +2,10 @@ package org.comprog.SudokuLab5;
 
 import java.io.Serializable;
 
+/**
+ * Enum type containing existing implementations of 
+ * the Dao interface 
+ */
 enum DaoTypes {
   FileSuokuBoard
 }

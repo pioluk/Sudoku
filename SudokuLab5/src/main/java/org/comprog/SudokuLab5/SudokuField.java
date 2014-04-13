@@ -2,6 +2,9 @@ package org.comprog.SudokuLab5;
 
 import java.io.Serializable;
 
+/**
+ * Class representing single sudoku field
+ */
 public class SudokuField implements Cloneable, Comparable<SudokuField>, Serializable {
 
   private static final long serialVersionUID = 4274260105018911667L;
@@ -10,11 +13,17 @@ public class SudokuField implements Cloneable, Comparable<SudokuField>, Serializ
   SudokuField(int value) {
     this.value = value;
   }
-  
+
+  /**
+   * @return value of the field
+   */
   public int getValue() {
     return value;
   }
   
+  /**
+   * @param value value of the field to set
+   */
   public void setValue(int value) {
     this.value = value;
   }
