@@ -19,7 +19,7 @@ public class FileSudokuBoardDaoTest {
   private static final String fileName = "/tmp/FileSudokuBoardDaoTest.dat";
 
   @Test
-  public void testBoard() {
+  public void testSerializationCorrectness() {
     SudokuBoard board = new SudokuBoard();
     SudokuSolver randomSolver = new RandomSudokuSolver();
     randomSolver.solve(board);
