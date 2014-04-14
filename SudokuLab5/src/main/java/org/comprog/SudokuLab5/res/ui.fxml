@@ -10,9 +10,7 @@
 <VBox fx:controller="org.comprog.SudokuLab5.UIController" xmlns:fx="http://javafx.com/fxml">
 	<children>
 	
-		<!-- <FlowPane id="flowPane"> -->
-			<Label id="titleLabel" text="Sudoku" />
-		<!-- </FlowPane> -->
+		<Label id="titleLabel" text="Sudoku" />
 		
 		<FlowPane id="flowPane">
 			<children>

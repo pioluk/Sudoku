@@ -165,8 +165,6 @@ public class UIController implements Initializable {
     else {
       field.getStyleClass().removeAll(INVALID_STYLE_CLASS_NAME);
       board.set(field.getX(), field.getY(), new Integer(value));
-      System.out.println("field set");
-      System.out.println(board.isCorrect());
     }
   }
   

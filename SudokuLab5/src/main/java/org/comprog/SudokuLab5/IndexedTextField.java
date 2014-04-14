@@ -2,6 +2,11 @@ package org.comprog.SudokuLab5;
 
 import javafx.scene.control.TextField;
 
+/**
+ * Class extending TextField
+ * adds information about location of the control
+ *
+ */
 public class IndexedTextField extends TextField {
   
   private int x;

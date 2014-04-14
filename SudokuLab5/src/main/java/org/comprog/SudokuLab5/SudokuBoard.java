@@ -7,6 +7,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Difficulty levels
+ * NONE is used for tests
+ */
 enum Difficulty {
   NONE, EASY, MEDIUM, HARD
 }
