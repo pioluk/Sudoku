@@ -1,16 +1,9 @@
 package org.comprog.SudokuLab5;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
-import org.comprog.SudokuLab5.Dao;
-import org.comprog.SudokuLab5.DaoFactory;
-import org.comprog.SudokuLab5.DaoTypes;
-import org.comprog.SudokuLab5.FileSudokuBoardDao;
-import org.comprog.SudokuLab5.RandomSudokuSolver;
-import org.comprog.SudokuLab5.SudokuBoard;
-import org.comprog.SudokuLab5.SudokuSolver;
 import org.junit.After;
 import org.junit.Test;
 
@@ -25,8 +18,15 @@ public class FileSudokuBoardDaoTest {
     randomSolver.solve(board);
     
     Dao<SudokuBoard> sudokuDao = DaoFactory.create(DaoTypes.FileSuokuBoard, fileName);
-    sudokuDao.write(board);
-    SudokuBoard board2 = sudokuDao.read();
+    
+    SudokuBoard board2 = null;
+    
+    try {
+      sudokuDao.write(board);
+      board2 = sudokuDao.read();
+    } catch (Exception e) {
+      System.err.println(e.getMessage());
+    }
     
     assertEquals(board, board2);
   }

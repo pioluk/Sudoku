@@ -1,7 +1,9 @@
 package org.comprog.SudokuLab5;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
@@ -16,26 +18,40 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
   }
   
   @Override
-  public SudokuBoard read() {
+  public SudokuBoard read() throws Exception {
     SudokuBoard obj = null;
     
     try (ObjectInput in = new ObjectInputStream(new FileInputStream(fileName))) {
       obj = (SudokuBoard) in.readObject();
     }
-    catch (Exception e) {
-      e.printStackTrace();
+    catch (FileNotFoundException e) {
+      System.err.println("FileNotFounException: " + e.getMessage());
+      throw e;
+    }
+    catch (IOException e) {
+      System.err.println("IOException: " + e.getMessage());
+      throw e;
+    }
+    catch (ClassNotFoundException e) {
+      System.err.println("ClassNotFoundException: " + e.getMessage());
+      throw e;
     }
     
     return obj;
   }
 
   @Override
-  public void write(SudokuBoard obj) {
+  public void write(SudokuBoard obj) throws Exception {
     try (ObjectOutput out = new ObjectOutputStream(new FileOutputStream(fileName))) {
       out.writeObject(obj);
-    } 
-    catch (Exception e) {
-      e.printStackTrace();
+    }
+    catch (FileNotFoundException e) {
+      System.err.println("FileNotFounException: " + e.getMessage());
+      throw e;
+    }
+    catch (IOException e) {
+      System.err.println("IOException: " + e.getMessage());
+      throw e;
     }
   }
 
