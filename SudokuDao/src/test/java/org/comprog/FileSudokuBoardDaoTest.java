@@ -16,7 +16,7 @@ import org.junit.Test;
 
 public class FileSudokuBoardDaoTest {
 
-  private static final String fileName = "/tmp/FileSudokuBoardDaoTest.dat";
+  private static final String fileName = "FileSudokuBoardDaoTest.dat";
 
   @Test
   public void testSerializationCorrectness() {
