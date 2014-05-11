@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Sudoku</name>
-	<comment></comment>
+	<name>Sudoku-UI</name>
+	<comment>NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
 	<projects>
+		<project>Sudoku-Core</project>
+		<project>Sudoku-Dao</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

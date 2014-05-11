@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.comprog</groupId>
-  <artifactId>SudokuBase</artifactId>
+  <artifactId>Sudoku</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>SudokuBase</name>
+  <name>Sudoku</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -110,9 +110,9 @@
   </reporting>
 
   <modules>
-    <module>Sudoku</module>
-    <module>SudokuUI</module>
-    <module>SudokuDao</module>
+    <module>Sudoku-Core</module>
+    <module>Sudoku-UI</module>
+    <module>Sudoku-Dao</module>
   </modules>
 
 </project>
