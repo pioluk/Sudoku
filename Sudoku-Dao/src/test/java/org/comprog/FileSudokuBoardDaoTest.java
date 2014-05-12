@@ -3,20 +3,26 @@ package org.comprog;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import org.comprog.Dao;
-import org.comprog.DaoFactory;
-import org.comprog.DaoTypes;
-import org.comprog.Difficulty;
-import org.comprog.RandomSudokuSolver;
-import org.comprog.SudokuBoard;
-import org.comprog.SudokuSolver;
 import org.junit.After;
 import org.junit.Test;
 
 public class FileSudokuBoardDaoTest {
+  
+  private static SudokuLogger logger;
+  
+  static {
+    try {
+      logger = SudokuLogger.getInstance();
+    }
+    catch (SudokuException e) {
+      Logger.getLogger("Sudoku").log(Level.SEVERE, e.getLocalizedMessage());
+    }
+  }
 
-  private static final String fileName = "FileSudokuBoardDaoTest.dat";
+  private static final String FILE_NAME = "FileSudokuBoardDaoTest.dat";
 
   @Test
   public void testSerializationCorrectness() {
@@ -24,7 +30,7 @@ public class FileSudokuBoardDaoTest {
     SudokuSolver randomSolver = new RandomSudokuSolver();
     randomSolver.solve(board);
 
-    Dao<SudokuBoard> sudokuDao = DaoFactory.create(DaoTypes.FileSuokuBoard, fileName);
+    Dao<SudokuBoard> sudokuDao = DaoFactory.create(DaoTypes.FileSuokuBoard, FILE_NAME);
 
     SudokuBoard board2 = null;
 
@@ -32,7 +38,7 @@ public class FileSudokuBoardDaoTest {
       sudokuDao.write(board);
       board2 = sudokuDao.read();
     } catch (Exception e) {
-      System.err.println(e.getMessage());
+      logger.log(Level.SEVERE, e.getLocalizedMessage());
     }
 
     assertEquals(board, board2);
@@ -40,9 +46,9 @@ public class FileSudokuBoardDaoTest {
 
   @After
   public void tearDown() throws Exception {
-    File file = new File(fileName);
+    File file = new File(FILE_NAME);
     if (!file.delete())
-      throw new RuntimeException("Error deleting " + fileName);
+      throw new RuntimeException("Error deleting " + FILE_NAME);
   }
 
 }

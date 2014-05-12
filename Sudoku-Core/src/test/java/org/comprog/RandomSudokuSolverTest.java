@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.comprog.Difficulty;
 import org.comprog.RandomSudokuSolver;
@@ -45,7 +46,7 @@ public class RandomSudokuSolverTest {
         int index = board.get(j, i);
         if (elements.get(index)) {
           fail("Repeating number in a row");
-          System.out.println(i);}
+        }
         else
           elements.set(index, true);
       }

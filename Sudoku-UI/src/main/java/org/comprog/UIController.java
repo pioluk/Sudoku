@@ -42,8 +42,6 @@ public class UIController implements Initializable {
   private SudokuSolver randomSolver = new RandomSudokuSolver();
   
   private ResourceBundle translations;
-  
-  private int zeroCount = 0;
 
   /**
    * Method filling the gird on first run
@@ -180,7 +178,6 @@ public class UIController implements Initializable {
 
     if (!value.matches("^\\d$") || value.matches("^0$")) {
       field.getStyleClass().add(INVALID_STYLE_CLASS_NAME);
-      ++zeroCount;
     }
     else {
       field.getStyleClass().removeAll(INVALID_STYLE_CLASS_NAME);

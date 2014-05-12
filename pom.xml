@@ -113,6 +113,9 @@
     <module>Sudoku-Core</module>
     <module>Sudoku-UI</module>
     <module>Sudoku-Dao</module>
+    <module>Sudoku-Exceptions</module>
+    <module>Sudoku-Logger</module>
+    <module>Sudoku-Translations</module>
   </modules>
 
 </project>

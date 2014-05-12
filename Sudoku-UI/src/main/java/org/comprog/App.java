@@ -1,23 +1,36 @@
 package org.comprog;
 
-import java.io.IOException;
+import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.comprog.SudokuException.Type;
 
 /**
  * Class representing JavaFX Application
  */
 public class App extends Application {
+  
+  // private static final Logger logger = Logger.getLogger("Sudoku");
+  private static SudokuLogger logger;
+  
+  static {
+    try {
+      logger = SudokuLogger.getInstance();
+    }
+    catch (SudokuException e) {
+      Logger.getLogger("Sudoku").log(Level.SEVERE, e.getLocalizedMessage());
+    }
+  }
 
   private static final String BUNDLE_NAME = "translations";
 
@@ -36,7 +49,7 @@ public class App extends Application {
   private MenuItem polishMenuItem;
   private VBox vbox;
   
-  private static ResourceBundle bundle;
+  private static ResourceBundle translationBundle;
 
   @Override
   public void start(Stage primaryStage) throws Exception {
@@ -44,22 +57,34 @@ public class App extends Application {
     
     primaryStage.setTitle(TITLE);
     
-    loadView(Locale.getDefault());
+    try {
+      loadView(Locale.getDefault());
+    }
+    catch(SudokuException e) {
+      logger.log(Level.SEVERE, e.getLocalizedMessage());
+      System.exit(1);
+    }
     
     primaryStage.setResizable(false);
     primaryStage.show();
   }
 
-  private void loadView(Locale locale) throws IOException {
+  private void loadView(Locale locale) throws SudokuException {
     if (locale == null)
       locale = Locale.getDefault();
     
-    bundle = ResourceBundle.getBundle(BUNDLE_NAME, locale);
+    translationBundle = ResourceBundle.getBundle(BUNDLE_NAME, locale);
     
     setUpMenu();
     
-    vbox = FXMLLoader.load(getClass().getClassLoader().getResource(FXML_FILE_PATH),
-                           bundle);
+    
+    try {
+      URL url = getClass().getClassLoader().getResource(FXML_FILE_PATH);
+      vbox = FXMLLoader.load(url, translationBundle);
+    } 
+    catch (Exception e) {
+      throw new SudokuException(Type.FILE_NOT_FOUND, FXML_FILE_PATH);
+    }
     
     vbox.getChildren().add(0, menuBar);
     
@@ -75,25 +100,31 @@ public class App extends Application {
     menuBar = new MenuBar();
     menuBar.setId("menuBar");
     
-    menuLanguage = new Menu(bundle.getString("language"));
+    menuLanguage = new Menu(translationBundle.getString("language"));
     menuLanguage.setId("menuLanguage");
     
-    englishMenuItem = new MenuItem(bundle.getString("english"));
+    englishMenuItem = new MenuItem(translationBundle.getString("english"));
     englishMenuItem.setOnAction((e) -> {
-      try {
-        loadView(new Locale("en", "GB"));
-      } catch (Exception e1) {
-        e1.printStackTrace();
-      }
+        try {
+          Locale locale = new Locale("en", "GB");
+          loadView(locale);
+          SudokuExceptionBase.setLocale(locale);
+        }
+        catch(SudokuException e1) {
+          logger.log(Level.SEVERE, e1.getLocalizedMessage());
+        }
     });
     
-    polishMenuItem = new MenuItem(bundle.getString("polish"));
+    polishMenuItem = new MenuItem(translationBundle.getString("polish"));
     polishMenuItem.setOnAction((e) -> {
-      try {
-        loadView(new Locale("pl", "PL"));
-      } catch (Exception e2) {
-        e2.printStackTrace();
-      }
+        try {
+          Locale locale = new Locale("pl", "PL");
+          loadView(locale);
+          SudokuExceptionBase.setLocale(locale);
+        }
+        catch(SudokuException e2) {
+          logger.log(Level.SEVERE, e2.getLocalizedMessage());
+        }
     });
     
     menuLanguage.getItems().addAll(englishMenuItem, polishMenuItem);
@@ -102,6 +133,8 @@ public class App extends Application {
 
   public static void main( String[] args ) {    
     launch(args);
+    
+//    SudokuLogger.close();
   }
 
 }

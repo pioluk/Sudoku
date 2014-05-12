@@ -24,26 +24,16 @@
       <artifactId>Sudoku-Core</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>org.comprog</groupId>
+      <artifactId>Sudoku-Exceptions</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.comprog</groupId>
+      <artifactId>Sudoku-Logger</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
   </dependencies>
-
-  <!-- <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>install</phase>
-            <goals>
-              <goal>copy-dependencies</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${targetDir}/lib</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build> -->
 
 </project>

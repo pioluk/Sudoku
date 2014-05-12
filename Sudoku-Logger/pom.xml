@@ -11,9 +11,9 @@
   </parent>
 
   <groupId>org.comprog</groupId>
-  <artifactId>Sudoku-Core</artifactId>
+  <artifactId>Sudoku-Logger</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>Sudoku-Core</name>
+  <name>Sudoku-Logger</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -24,11 +24,6 @@
     <dependency>
       <groupId>org.comprog</groupId>
       <artifactId>Sudoku-Exceptions</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.comprog</groupId>
-      <artifactId>Sudoku-Logger</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
