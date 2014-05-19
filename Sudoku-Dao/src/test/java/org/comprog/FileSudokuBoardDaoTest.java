@@ -37,6 +37,7 @@ public class FileSudokuBoardDaoTest {
     try {
       sudokuDao.write(board);
       board2 = sudokuDao.read();
+      System.out.println(board2);
     } catch (Exception e) {
       logger.log(Level.SEVERE, e.getLocalizedMessage());
     }

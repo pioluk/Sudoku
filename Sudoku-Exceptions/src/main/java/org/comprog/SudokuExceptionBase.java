@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
  * Base class for exceptions
  * provides localization
  */
-public abstract class SudokuExceptionBase extends Exception {
+public abstract class SudokuExceptionBase extends RuntimeException {
   
   private static final long serialVersionUID = 2348715283807357027L;
   
@@ -28,7 +28,7 @@ public abstract class SudokuExceptionBase extends Exception {
   }
 
   public static void setLocale(Locale locale) {
-    locale = locale;
+    SudokuExceptionBase.locale = locale;
     translationBundle = ResourceBundle.getBundle("translations", locale);
   }
 

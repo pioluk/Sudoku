@@ -77,10 +77,14 @@ public class App extends Application {
     
     setUpMenu();
     
-    
     try {
       URL url = getClass().getClassLoader().getResource(FXML_FILE_PATH);
-      vbox = FXMLLoader.load(url, translationBundle);
+      FXMLLoader loader = new FXMLLoader(url, translationBundle);
+      vbox = (VBox) loader.load();
+      UIController controller = (UIController) loader.getController();
+      controller.setStage(stage);
+      controller.setMenuBar(menuBar);
+      controller.setUpMenu();
     } 
     catch (Exception e) {
       throw new SudokuException(Type.FILE_NOT_FOUND, FXML_FILE_PATH);

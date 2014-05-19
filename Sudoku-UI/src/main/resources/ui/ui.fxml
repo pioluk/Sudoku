@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
 
-<VBox fx:controller="org.comprog.UIController" xmlns:fx="http://javafx.com/fxml">
-	<children>
+<VBox fx:id="vbox" fx:controller="org.comprog.UIController" xmlns:fx="http://javafx.com/fxml">
+  <children>
 
-		<Label id="titleLabel" text="Sudoku" />
+    <Label id="titleLabel" text="Sudoku" />
 
-		<FlowPane id="flowPane">
-			<children>
-				<RadioButton fx:id="superEasyModeButton" text="%super_easy" selected="true" />
-				<RadioButton fx:id="easyModeButton" text="%easy" />
-				<RadioButton fx:id="mediumModeButton" text="%medium" />
-				<RadioButton fx:id="hardModeButton" text="%hard" />
-			</children>
-		</FlowPane>
+    <FlowPane id="flowPane">
+      <children>
+        <RadioButton fx:id="superEasyModeButton" text="%super_easy" selected="true" />
+        <RadioButton fx:id="easyModeButton" text="%easy" />
+        <RadioButton fx:id="mediumModeButton" text="%medium" />
+        <RadioButton fx:id="hardModeButton" text="%hard" />
+      </children>
+    </FlowPane>
 
-		<GridPane fx:id="grid">
-			<children>
-			</children>
-		</GridPane>
+    <GridPane fx:id="grid">
+      <children>
+      </children>
+    </GridPane>
 
-		<Button onAction="#onReloadButtonAction" fx:id="generateBoardButton" maxWidth="360" text="%generate_board" />
+    <Button onAction="#onReloadButtonAction" fx:id="generateBoardButton" maxWidth="360" text="%generate_board" />
 
-	</children>
+  </children>
 </VBox>
 

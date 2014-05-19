@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 *.zip
-/target
-=======
 target/
-*.zip
->>>>>>> origin/task6
+*.jar
+*.log
+
