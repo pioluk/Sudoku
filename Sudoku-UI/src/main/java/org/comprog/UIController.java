@@ -63,7 +63,6 @@ public class UIController implements Initializable {
     translations = resources;
     
     // set up UI
-    // setUpMenu(); 
     setUpRadioButtons();
     setUpGrid();
     fillGrid();
@@ -225,10 +224,13 @@ public class UIController implements Initializable {
     chooser.setInitialDirectory(new File(System.getProperty("user.home")));
     File file = chooser.showOpenDialog(stage);
     
+    Difficulty difficulty = board.getDifficulty();
+    
     Dao reader = DaoFactory.create(DaoTypes.FileSuokuBoard, file.toString());
     
     try {
       board = (SudokuBoard) reader.read();
+      board.setDifficulty(difficulty);
       
       for (int i = 0; i < FIELDS_PER_DIMENSION; ++i) {
         for (int j = 0; j < FIELDS_PER_DIMENSION; ++j) {
